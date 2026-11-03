@@ -1,3 +1,5 @@
+
+
 # nt_chatbot
 Secure serverless AI chatbot on AWS powered by Claude, deployed with Terraform: guardrails, rate limiting, monitoring and CI/CD.
 
@@ -29,7 +31,7 @@ User → CloudFront → WAF → API Gateway → Lambda → Claude (Anthropic)
 - Infrastructure as code, with easy teardown to avoid costs
 
 ## Progress
-- [ ] Prerequisites installed
+- [x] Prerequisites installed
 - [ ] One-time setup (bootstrap)
 - [ ] Deploy
 - [ ] Testing
@@ -40,7 +42,8 @@ User → CloudFront → WAF → API Gateway → Lambda → Claude (Anthropic)
 ## Problems log
 | # | Problem | Cause | Fix I chose | Why |
 |---|---|---|---|---|
-| | | | | |
+| 1 | Ubuntu suggested an old AWS CLI (v1 via snap) | Ubuntu's packages lag behind | Installed AWS CLI v2 with Amazon's official installer | The lab needs v2, and the official source is up to date |
+| 2 | Ubuntu's Node.js is too old (lab needs 22+) | apt ships an older version | Installed Node LTS with nvm | nvm installs any version without sudo and makes upgrades easy |
 
 ## What I learned
 _to fill in as I go_
