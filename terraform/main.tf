@@ -14,10 +14,10 @@ terraform {
 
   backend "s3" {
     # Configure via -backend-config flags in terraform init
-    # bucket         = "nakoba-terraform-state-[ACCOUNT_ID]"
-    # key            = "nakoba-chatbot/[env]/terraform.tfstate"
+    # bucket         = "nt-terraform-state-[ACCOUNT_ID]"
+    # key            = "nt-chatbot/[env]/terraform.tfstate"
     # region         = "us-east-1"
-    # dynamodb_table = "nakoba-terraform-locks"
+    # dynamodb_table = "nt-terraform-locks"
     # encrypt        = true
   }
 }
@@ -50,6 +50,6 @@ locals {
     ManagedBy   = "terraform"
     CostCenter  = "engineering"
     DataClass   = "confidential"
-    CreatedDate = "2026-05-27"
+    CreatedDate = "2026-11-03"
   }
 }

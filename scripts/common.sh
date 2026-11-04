@@ -14,8 +14,8 @@ LAMBDA_DIR="$REPO_ROOT/ai-chatbot/lambda"
 
 export AWS_REGION="${AWS_REGION:-us-east-1}"
 export AWS_DEFAULT_REGION="$AWS_REGION"
-SECRET_NAME="${SECRET_NAME:-nakoba/anthropic-api-key}"
-LOCK_TABLE="${LOCK_TABLE:-nakoba-terraform-locks}"
+SECRET_NAME="${SECRET_NAME:-nt/anthropic-api-key}"
+LOCK_TABLE="${LOCK_TABLE:-nt-terraform-locks}"
 
 green() { printf '\033[32m%s\033[0m\n' "$*"; }
 yellow() { printf '\033[33m%s\033[0m\n' "$*"; }
@@ -39,14 +39,14 @@ aws_account_id() {
     || die "AWS CLI is not logged in. Run 'aws configure' (see docs/03-bootstrap.md, step 1)."
 }
 
-state_bucket() { echo "nakoba-terraform-state-$(aws_account_id)"; }
+state_bucket() { echo "nt-terraform-state-$(aws_account_id)"; }
 
 tf_init() {
   local env="$1"
-  step "terraform init (state: s3://$(state_bucket)/nakoba-chatbot/$env)"
+  step "terraform init (state: s3://$(state_bucket)/nt-chatbot/$env)"
   terraform -chdir="$TF_DIR" init -reconfigure -input=false \
     -backend-config="bucket=$(state_bucket)" \
-    -backend-config="key=nakoba-chatbot/$env/terraform.tfstate" \
+    -backend-config="key=nt-chatbot/$env/terraform.tfstate" \
     -backend-config="region=$AWS_REGION" \
     -backend-config="dynamodb_table=$LOCK_TABLE" \
     -backend-config="encrypt=true"

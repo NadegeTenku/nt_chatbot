@@ -2,7 +2,7 @@
 
 const { DynamoDBClient, UpdateItemCommand, GetItemCommand } = require("@aws-sdk/client-dynamodb");
 
-const TABLE_NAME = process.env.RATE_LIMIT_TABLE || "nakoba-rate-limits";
+const TABLE_NAME = process.env.RATE_LIMIT_TABLE || "nt-rate-limits";
 const WINDOW_SECONDS = 60;
 const MAX_REQUESTS = parseInt(process.env.RATE_LIMIT_MAX || "100", 10);
 
@@ -10,7 +10,7 @@ const dynamo = new DynamoDBClient({ region: process.env.AWS_REGION || "us-east-1
 
 function hashIp(ip) {
   const crypto = require("crypto");
-  return crypto.createHash("sha256").update(ip + (process.env.RATE_LIMIT_SALT || "nakoba")).digest("hex").slice(0, 16);
+  return crypto.createHash("sha256").update(ip + (process.env.RATE_LIMIT_SALT || "nt")).digest("hex").slice(0, 16);
 }
 
 function getClientIp(event) {

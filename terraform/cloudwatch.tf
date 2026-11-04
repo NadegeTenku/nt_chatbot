@@ -91,7 +91,7 @@ resource "aws_cloudwatch_log_metric_filter" "harmful_content" {
 
   metric_transformation {
     name      = "HarmfulContentBlocked"
-    namespace = "NakobaAI/Security"
+    namespace = "NTChatbot/Security"
     value     = "1"
   }
 }
@@ -102,7 +102,7 @@ resource "aws_cloudwatch_metric_alarm" "harmful_content_spike" {
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 1
   metric_name         = "HarmfulContentBlocked"
-  namespace           = "NakobaAI/Security"
+  namespace           = "NTChatbot/Security"
   period              = 3600
   statistic           = "Sum"
   threshold           = 50
@@ -119,7 +119,7 @@ resource "aws_cloudwatch_log_metric_filter" "pii_detected" {
 
   metric_transformation {
     name      = "PIIDetected"
-    namespace = "NakobaAI/Security"
+    namespace = "NTChatbot/Security"
     value     = "1"
   }
 }

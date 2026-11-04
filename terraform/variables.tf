@@ -16,7 +16,7 @@ variable "aws_region" {
 variable "project_name" {
   description = "Project identifier used in resource names and tags"
   type        = string
-  default     = "nakoba-chatbot"
+  default     = "nt-chatbot"
 }
 
 variable "owner_email" {
@@ -37,7 +37,7 @@ variable "anthropic_model" {
 variable "anthropic_secret_name" {
   description = "AWS Secrets Manager secret name for the Anthropic API key"
   type        = string
-  default     = "nakoba/anthropic-api-key"
+  default     = "nt/anthropic-api-key"
 }
 
 variable "lambda_memory_mb" {

@@ -33,6 +33,7 @@ User → CloudFront → WAF → API Gateway → Lambda → Claude (Anthropic)
 ## Progress
 - [x] Prerequisites installed
 - [x] AWS CLI connected to my account
+- [x] Lab code added to my repo
 - [ ] One-time setup (bootstrap)
 - [ ] Deploy
 - [ ] Testing

@@ -60,7 +60,7 @@ API_KEY="$(printf '%s' "$API_KEY" | tr -d '[:space:]')"
 SECRET_JSON="{\"api_key\":\"$API_KEY\"}"
 if [ "$STATUS" = "MISSING" ]; then
   aws secretsmanager create-secret --name "$SECRET_NAME" \
-    --description "Anthropic API key for the Nakoba AI Chatbot" \
+    --description "Anthropic API key for the NT AI Chatbot" \
     --secret-string "$SECRET_JSON" >/dev/null
 else
   aws secretsmanager put-secret-value --secret-id "$SECRET_NAME" --secret-string "$SECRET_JSON" >/dev/null

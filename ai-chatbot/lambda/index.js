@@ -15,7 +15,7 @@ let cachedApiKey = null;
 async function getApiKey() {
   if (cachedApiKey) return cachedApiKey;
 
-  const secretId = process.env.ANTHROPIC_SECRET_NAME || "nakoba/anthropic-api-key";
+  const secretId = process.env.ANTHROPIC_SECRET_NAME || "nt/anthropic-api-key";
   try {
     const result = await secretsClient.send(new GetSecretValueCommand({ SecretId: secretId }));
     const secret = JSON.parse(result.SecretString);
@@ -28,7 +28,7 @@ async function getApiKey() {
   }
 }
 
-const SYSTEM_PROMPT = `You are a helpful AI assistant for Nakoba Enterprise. You are professional, accurate, and concise.
+const SYSTEM_PROMPT = `You are a helpful AI assistant for NT Chatbot. You are professional, accurate, and concise.
 
 You must always:
 - Be honest about being an AI
