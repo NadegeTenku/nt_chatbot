@@ -47,6 +47,7 @@ User → CloudFront → WAF → API Gateway → Lambda → Claude (Anthropic)
 | 1 | Ubuntu suggested an old AWS CLI (v1 via snap) | Ubuntu's packages lag behind | Installed AWS CLI v2 with Amazon's official installer | The lab needs v2, and the official source is up to date |
 | 2 | Ubuntu's Node.js is too old (lab needs 22+) | apt ships an older version | Installed Node LTS with nvm | nvm installs any version without sudo and makes upgrades easy |
 | 3 | "Authentication failed" signing in to AWS | Used my email (root login) instead of my IAM username | Signed in through the account's IAM sign-in page with my username | Root is for emergencies only. Daily work uses the IAM user with MFA |
+| 4 | Wanted nt_chatbot as the AWS name | S3 bucket names don't allow underscores | Used nt-chatbot (hyphen) for AWS, kept nt_chatbot for the repo | Each system has its own naming rules |
 
 ## What I learned
 _to fill in as I go_
