@@ -7,7 +7,7 @@
       content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://*.execute-api.us-east-1.amazonaws.com https://*.cloudfront.net; img-src 'self' data:; frame-ancestors 'none'; form-action 'self';" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="X-Frame-Options" content="DENY" />
-    <title>Nash AI Assistant</title>
+    <title>Nash IT Helpdesk Assistant</title>
     <style>
       :root {
         --bg: #0f1117;
@@ -373,42 +373,46 @@
       <header>
         <div class="logo">🤖</div>
         <div>
-          <h1>Nash AI Assistant</h1>
+          <h1>Nash IT Helpdesk Assistant</h1>
           <p>Powered by Claude</p>
         </div>
         <div class="status-dot" title="Online"></div>
       </header>
+      <div class="security-notice" style="background:#fff4e5;color:#7a4a00;border-left:4px solid #f0a020;padding:8px 14px;font-size:13px;">
+        🔒 Be aware: this chatbot will never ask for your password, PIN, API credentials or any form of payment.
+      </div>
 
       <div id="messages">
         <div id="empty">
           <div class="icon">✨</div>
           <h2>How can I help you today?</h2>
-          <p>Ask me anything — I'm powered by Claude and ready to assist.</p>
+          <p>Ask me about passwords, Wi-Fi, VPN, email, printers and more.</p>
           <div class="starters">
             <button
               class="starter"
-              onclick="sendStarter('Explain how AWS Lambda works')"
+              onclick="sendStarter('How do I reset my password?')"
             >
-              Explain AWS Lambda
+              🔑 Reset my password
             </button>
             <button
               class="starter"
-              onclick="sendStarter('What is serverless architecture?')"
+              onclick="sendStarter('My laptop will not connect to the Wi-Fi. What should I try?')"
             >
-              Serverless architecture
+              📶 Wi-Fi not connecting
             </button>
             <button
               class="starter"
-              onclick="sendStarter('Write me a Python hello world')"
+              onclick="sendStarter('My printer is not printing. How do I fix it?')"
             >
-              Write some code
+              🖨️ Printer not working
             </button>
             <button
               class="starter"
-              onclick="sendStarter('What are the benefits of using S3 for static hosting?')"
+              onclick="sendStarter('How do I set up and connect to the company VPN?')"
             >
-              S3 static hosting
+              🔐 Set up VPN
             </button>
+          </div>
           </div>
         </div>
       </div>
@@ -418,7 +422,7 @@
           <textarea
             id="msgInput"
             rows="1"
-            placeholder="Message Nash AI Assistant..."
+            placeholder="Message Nash IT Helpdesk Assistant..."
           ></textarea>
           <button id="sendBtn" onclick="sendMessage()" title="Send">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

@@ -48,9 +48,10 @@ User → CloudFront → WAF → API Gateway → Lambda → Claude (Anthropic)
 | 2 | Ubuntu's Node.js is too old (lab needs 22+) | apt ships an older version | Installed Node LTS with nvm | nvm installs any version without sudo and makes upgrades easy |
 | 3 | "Authentication failed" signing in to AWS | Used my email (root login) instead of my IAM username | Signed in through the account's IAM sign-in page with my username | Root is for emergencies only. Daily work uses the IAM user with MFA |
 | 4 | Wanted nt_chatbot as the AWS name | S3 bucket names don't allow underscores | Used nt-chatbot (hyphen) for AWS, kept nt_chatbot for the repo | Each system has its own naming rules |
+| 5 | CI check "Terraform Validate" failed after a README push: runtime nodejs24.x not allowed | main.tf pinned the AWS provider to "~> 5.0", an older version that doesn't know Node.js 24 | Changed it to "~> 6.0" (installed v6.72.0), ran terraform validate locally, committed main.tf and the lock file | Keeps the modern runtime (Node.js 22 retires sooner). The lock file makes GitHub use the same versions as my PC |
 
 ## What I learned
-_to fill in as I go_
+|x| Lesson learned: apostrophes in button messages can break the page | Each starter button's message sits inside single quotes, e.g. sendStarter('...'). An apostrophe like "won't" ends the quote early, so the button fails | Wrote "will not" instead of "won't" (no apostrophes) in all button messages | Avoids a hidden JavaScript error. The page looks fine, but the button silently does nothing when clicked |
 
 ## Architecture
 
