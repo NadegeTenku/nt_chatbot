@@ -68,3 +68,6 @@ flowchart LR
     L --> SM[Secrets Manager: API key]
     L --> CW[CloudWatch + SNS: logs and alerts]
 ```
+
+## Chat page screenshot
+<img width="906" height="584" alt="image" src="https://github.com/user-attachments/assets/9b34ea3a-4980-45fc-b84f-554642b7b9f0" />
