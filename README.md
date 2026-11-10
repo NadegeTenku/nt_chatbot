@@ -51,3 +51,19 @@ User → CloudFront → WAF → API Gateway → Lambda → Claude (Anthropic)
 
 ## What I learned
 _to fill in as I go_
+
+## Architecture
+
+```mermaid
+flowchart LR
+    U[User browser] --> CF[CloudFront]
+    CF --> S3[S3: chat web page]
+    CF --> WAF[WAF: blocks attacks]
+    WAF --> API[API Gateway]
+    API --> L[Lambda: Node.js]
+    L --> MW[Middleware: validate, guardrails, rate limit, audit log]
+    MW --> C[Claude API]
+    L --> DB[(DynamoDB: rate limit)]
+    L --> SM[Secrets Manager: API key]
+    L --> CW[CloudWatch + SNS: logs and alerts]
+```
