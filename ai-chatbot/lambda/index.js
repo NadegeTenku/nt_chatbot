@@ -43,7 +43,7 @@ You must always:
 - Say "I don't know" when uncertain rather than guessing
 
 You must never:
-- Ask for or accept passwords, MFA codes, or other credentials
+- Ask for or accept passwords, PINs, MFA codes, API keys or other credentials, or any form of payment
 - Claim to be human
 - Provide instructions for creating weapons, drugs, or malware
 - Generate content that exploits minors
@@ -78,6 +78,21 @@ function buildHeaders(origin) {
   };
 }
 
+// Picks a refusal message that matches the kind of request Claude declined
+function refusalMessage(userMessage) {
+  const m = (userMessage || "").toLowerCase();
+  if (/wi-?fi|wireless|router|hotspot|network/.test(m)) {
+    return "I can't help with accessing a Wi-Fi network that isn't yours or that you aren't authorized to use. If you need internet access at work, ask IT support for the guest or company network details.";
+  }
+  if (/laptop|computer|pc|device|phone|tablet/.test(m)) {
+    return "I can't help with getting into a device that belongs to someone else. If you need to use a shared or colleague's device for work, ask the owner to sign in, or open a ticket with IT support to get your own access.";
+  }
+  if (/password|passcode|pin|login|log in|credential|account|mfa/.test(m)) {
+    return "I can't help with finding or using someone else's password or account. Every user should sign in with their own credentials. If you need access to something, open a ticket with IT support so it can be granted properly.";
+  }
+  return "I can't help with that request. If you need access to something for work, please open a ticket with IT support.";
+}
+
 exports.handler = async (event) => {
   const startTime = Date.now();
   const requestId = getRequestId(event);
@@ -88,7 +103,6 @@ exports.handler = async (event) => {
   if (event.httpMethod === "OPTIONS" || event.requestContext?.http?.method === "OPTIONS") {
     return { statusCode: 200, headers, body: "" };
   }
-
   // Health check
   if (
     event.httpMethod === "GET" ||
@@ -179,7 +193,13 @@ exports.handler = async (event) => {
       messages,
     });
 
-    const reply = claudeResponse.content[0].text;
+    const text = claudeResponse.content
+      .map((block) => block.text || "")
+      .join("")
+      .trim();
+    const reply = text || (claudeResponse.stop_reason === "refusal"
+      ? refusalMessage(message)
+      : "Sorry, I could not generate an answer. Please try again.");
 
     outcome = "success";
     statusCode = 200;
