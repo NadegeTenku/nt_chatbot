@@ -13,20 +13,20 @@ User → CloudFront → WAF → API Gateway → Lambda → Claude (Anthropic)
 
 | Tool / Service | What it does | Why I chose it |
 |---|---|---|
-| Claude (Anthropic API) | Generates the answers | _to fill in_ |
-| AWS Lambda | Runs the chatbot logic only when a question arrives | _to fill in_ |
-| API Gateway | Receives requests from the web page | _to fill in_ |
-| CloudFront + S3 | Hosts and delivers the chat page | _to fill in_ |
-| AWS WAF | Blocks malicious traffic | _to fill in_ |
-| DynamoDB | Tracks usage for rate limiting | _to fill in_ |
-| Secrets Manager | Stores the API key securely | _to fill in_ |
-| CloudWatch + SNS | Logs, alarms and email alerts | _to fill in_ |
-| Terraform | Builds all AWS resources as code | _to fill in_ |
+| Claude (Anthropic API) | Generates the answers | Strong at clear step-by-step instructions and has built-in safety training, so it refuses harmful requests as a second guardrail. Pay-per-use with no model to train or host (alternatives: OpenAI GPT, Amazon Bedrock) |
+| AWS Lambda | Runs the chatbot logic only when a question arrives | Serverless: no server to manage or patch, and I pay only when someone asks a question, nothing while idle (alternative: an always-on EC2 server) |
+| API Gateway | Receives requests from the web page | Gives the page one secure front door to Lambda, with built-in throttling, CORS and HTTPS (alternative: Lambda function URL, with fewer controls) |
+| CloudFront + S3 | Hosts and delivers the chat page | S3 stores the page cheaply; CloudFront serves it fast over HTTPS and keeps the bucket private (alternative: a web server on EC2) |
+| AWS WAF | Blocks malicious traffic | Filters bots, floods and common attacks before they reach my code or cost me API money (alternative: no firewall, so all traffic hits Lambda) |
+| DynamoDB | Tracks usage for rate limiting | Fast, serverless, pay-per-request storage for counting each user's requests, so one user cannot run up the Claude bill (alternative: an RDS database, which is always on and costs more) |
+| Secrets Manager | Stores the API key securely | Keeps the key encrypted and out of the code and GitHub; Lambda reads it at runtime with IAM permission only (alternative: environment variables, which are less secure) |
+| CloudWatch + SNS | Logs, alarms and email alerts | Logs show the exact error when something breaks; alarms email me about errors or spending, so I find problems before users do |
+| Terraform | Builds all AWS resources as code | One command builds or destroys all 48 resources the same way every time; the setup is version-controlled in GitHub (alternatives: clicking in the console, CloudFormation) |
 
 ## Key features
 - Personal data (PII) redaction before messages reach the AI
 - Blocking of harmful content and prompt-injection attempts
-- Rate limiting per user
+- Rate limiting per IP address
 - Monitoring and alerts
 - Infrastructure as code, with easy teardown to avoid costs
 
