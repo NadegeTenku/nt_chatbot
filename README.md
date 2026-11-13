@@ -1,9 +1,7 @@
 
 
-# nt_chatbot
-Secure serverless AI chatbot on AWS powered by Claude, deployed with Terraform: guardrails, rate limiting, monitoring and CI/CD.
-
-# nt_Chatbot: Secure Serverless AI Chatbot on AWS
+# Nash IT Helpdesk Assistant
+Secure serverless AI IT helpdesk chatbot on AWS powered by Claude, deployed with Terraform: guardrails, rate limiting, monitoring and CI/CD. Repository: nt_chatbot.
 
 ## The problem
 Businesses want AI chatbots on their websites, but a chatbot must be **safe** (no leaking personal data, no harmful answers), **cost-efficient** (pay only when used) and **reliable**. This project builds a production-style chatbot that meets all three.
