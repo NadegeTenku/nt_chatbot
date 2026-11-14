@@ -66,7 +66,7 @@ test("POST /chat returns Claude's reply and uses the configured model", async ()
   assert.equal(JSON.parse(res.body).response, "Hello from fake Claude");
   assert.equal(calls.claude.length, 1);
   assert.equal(calls.claude[0].model, process.env.ANTHROPIC_MODEL || "claude-sonnet-5-5");
-  assert.match(calls.claude[0].system, /helpful AI assistant/);
+  assert.match(calls.claude[0].system, /You are Nash/);
 });
 
 test("PII is redacted in the new message AND in earlier history before reaching Claude", async () => {

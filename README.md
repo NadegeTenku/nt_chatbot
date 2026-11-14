@@ -71,6 +71,7 @@ All AWS resources were deleted after testing. Verified with `aws s3 ls`, `aws dy
 | 7 | npm test: SyntaxError "Unexpected token '<'" at index.js:91 | A stray </header> HTML line got into the JavaScript file | Found it with sed + git status, deleted the line | git status shows uncommitted changes; small reads (sed) pinpoint the exact line |
 | 8 | Nash's numbered steps showed as one long paragraph | Browsers collapse line breaks by default | Added white-space: pre-wrap to .msg.bot .bubble in index.html | Keeps Claude's line breaks while still wrapping long lines; only affects bot replies |
 | 9 | All trap questions got the same refusal text | Claude refuses with no text, so the code supplied one fixed message | Added refusalMessage() that picks a Wi-Fi / device / password message by keywords | Clearer, more relevant guidance for users while Claude still decides what to refuse |
+| 10 | Update tests when the product changes on purpose | After renaming the bot in SYSTEM_PROMPT, a test still looked for the old words "helpful AI assistant" and failed | Changed the test to look for "You are Nash" | A failing test is not always a bug; it can be an outdated test. Updating it turns it into a guard for the new behaviour |
 
 ## What I learned
 | # | Lesson learned | What happened | Fix | Why it matters |
