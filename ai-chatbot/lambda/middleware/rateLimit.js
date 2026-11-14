@@ -4,7 +4,7 @@ const { DynamoDBClient, UpdateItemCommand, GetItemCommand } = require("@aws-sdk/
 
 const TABLE_NAME = process.env.RATE_LIMIT_TABLE || "nt-rate-limits";
 const WINDOW_SECONDS = 60;
-const MAX_REQUESTS = parseInt(process.env.RATE_LIMIT_MAX || "100", 10);
+const MAX_REQUESTS = parseInt(process.env.RATE_LIMIT_MAX || "10", 10);
 
 const dynamo = new DynamoDBClient({ region: process.env.AWS_REGION || "us-east-1" });
 
