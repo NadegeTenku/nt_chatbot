@@ -5,7 +5,7 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const Module = require("node:module");
 
-const calls = { claude: [], rateCount: 1, claudeError: null };
+const calls = { claude: [], rateCount: 1, claudeError: null, claudeResponse: null };
 
 class FakeAnthropic {
   constructor() {
@@ -13,6 +13,7 @@ class FakeAnthropic {
       create: async (req) => {
         calls.claude.push(req);
         if (calls.claudeError) throw calls.claudeError;
+        if (calls.claudeResponse) return calls.claudeResponse;
         return { content: [{ type: "text", text: "Hello from fake Claude" }], usage: { input_tokens: 12, output_tokens: 5 } };
       },
     };
@@ -102,4 +103,31 @@ test("A Claude API failure returns a safe 500 (no internal details)", async () =
   const res = await handler(post({ message: "hello" }));
   assert.equal(res.statusCode, 500);
   assert.ok(!res.body.includes("model not found"));
+});
+
+test("A reply split into several text blocks is joined, not a 500", async () => {
+  calls.rateCount = 1;
+  calls.claudeError = null;
+  calls.claudeResponse = {
+    content: [{ type: "text", text: "Part one." }, { type: "text", text: "Part two." }],
+    stop_reason: "end_turn",
+    usage: { input_tokens: 12, output_tokens: 5 },
+  };
+  const res = await handler(post({ message: "How do I set up VPN?" }));
+  assert.equal(res.statusCode, 200);
+  assert.ok(res.body.includes("Part one."));
+  assert.ok(res.body.includes("Part two."));
+});
+
+test("A refusal returns a friendly message, not a 500", async () => {
+  calls.rateCount = 1;
+  calls.claudeError = null;
+  calls.claudeResponse = {
+    content: [],
+    stop_reason: "refusal",
+    usage: { input_tokens: 12, output_tokens: 0 },
+  };
+  const res = await handler(post({ message: "hello" }));
+  assert.equal(res.statusCode, 200);
+  assert.ok(res.body.length > 0);
 });
